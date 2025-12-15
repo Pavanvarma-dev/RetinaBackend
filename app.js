@@ -37,7 +37,7 @@ Follows.association({ Users, Follows });
 
 
 db
-    .sync({force:true})
+    .sync({})
     .then(() =>{
         console.log('AWS DB is connected successfully');    
     })
