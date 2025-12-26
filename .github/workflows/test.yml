@@ -14,6 +14,9 @@ jobs:
     name: make code in maching
     uses: actions/checkout@v4
 
+    name: setting up nodejs
+    uses: actions/setup-node@v4
+
     name: storing dependies in cache
     uses: actions/cache@v4
     with:
