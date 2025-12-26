@@ -7,11 +7,28 @@ env:
   DB_NAME: Retina
   DB_USER: postgres
   DB_PASSWORD: System123
+  DB_HOST: localhost
+  DB_DIALECT: postgres
   PORT: 3000
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: System123
+          POSTGRES_DB: Retina
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
 
@@ -20,6 +37,8 @@ jobs:
 
       - name: setting up nodejs
         uses: actions/setup-node@v4
+        with:
+          nodee-version:'20'
       - name: storing dependies in cache
         uses: actions/cache@v4
         with:
@@ -30,7 +49,7 @@ jobs:
         run: npm ci
 
       - name: starting server
-        run: npm start & npx wait-on http://127.0.0.1:PORT
+        run: npm start & npx wait-on http://127.0.0.1:3000
 
       - name: let me know my DB name
         run: echo "Database name is $DB_NAME"
