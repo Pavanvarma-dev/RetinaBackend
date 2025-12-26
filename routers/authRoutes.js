@@ -10,6 +10,7 @@ const validate = require('../validation/userValidation');
 const authToken = require('../middleware/autthToken');
 const comments = require('../controller/comments');
 const follows = require('../controller/Followsers');
+const googleAuthController = require('../controller/googleController');
 
 // Use memoryStorage so req.file.buffer is available
 const upload = multer({ storage: multer.memoryStorage() });
@@ -34,5 +35,7 @@ router.post('/unfollow', authToken, follows.unFollowUser);
 router.get('/getfollowing/:id', authToken, follows.getFollowing);
 router.get('/getfollowers/:id', authToken, follows.getFollower);
 router.get('/count/:id', authToken, follows.count);
+router.post('/googlelogin', googleAuthController.googleLogin);
+
 
 module.exports = router;

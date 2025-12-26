@@ -1,21 +1,21 @@
 const Sequelize = require('sequelize');
-require('dotenv').config();
+// require('dotenv').config();
 
 const sequelize = new Sequelize(
-    process.env.DB_NAME,
-    process.env.DB_USER,
-    process.env.DB_PASSWORD,
+    process.env.DB_NAME || 'Retina',
+    process.env.DB_USER || 'postgres',
+    process.env.DB_PASSWORD || 'System123',
     {
-    host:process.env.DB_HOST,
+    host:'localhost',
     dialect:'postgres',
     logging:console.log,
     port:5432,
-    dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
-        }
-    }
+    // dialectOptions: {
+    //     ssl: {
+    //         require: true,
+    //         rejectUnauthorized: false
+    //     }
+    // }
 });
 
 sequelize.authenticate().then(() => {

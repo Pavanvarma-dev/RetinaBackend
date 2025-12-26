@@ -1,0 +1,31 @@
+name: testing my backend server
+on:
+  push:
+    branches:
+      - main
+env:
+  DB_NAME: Retina
+  DB_USER: postgres
+  DB_PASSWORD: System123
+
+jobs:
+  test:
+    runs-on: ubuntu_latest
+    name: make code in maching
+    uses: actions/checkout@v4
+
+    name: storing dependies in cache
+    uses: actions/cache@v4
+    with:
+      path: ~/.npm
+      key: chahe-with-dependies ${{Filename('**/package-lock.json')}}
+
+    name: installing dependies
+    run: npm ci
+
+    name: starting server
+    run: npm start & npx wait-on http://127.0.0.1:PORT
+
+    name: let me know my DB name
+    run: echo "Database name is $DB_NAME"
+  

@@ -18,6 +18,12 @@ const Users = sequelize.define('users',{
         allowNull:false,
         unique:true
     },
+    provider:{
+
+        type:Sequelize.STRING,
+        allowNull:false,
+        defaultValue:'local'
+    },
     password:{
         type:Sequelize.STRING,
         allowNull:false
