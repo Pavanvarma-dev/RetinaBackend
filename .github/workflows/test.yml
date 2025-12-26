@@ -14,24 +14,23 @@ jobs:
 
     steps:
 
-      name: make code in maching
-      uses: actions/checkout@v4
+      - name: make code in maching
+        uses: actions/checkout@v4
 
-      name: setting up nodejs
-      uses: actions/setup-node@v4
+      - name: setting up nodejs
+        uses: actions/setup-node@v4
+      - name: storing dependies in cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: chahe-with-dependies ${{Filename('**/package-lock.json')}}
 
-      name: storing dependies in cache
-      uses: actions/cache@v4
-      with:
-        path: ~/.npm
-        key: chahe-with-dependies ${{Filename('**/package-lock.json')}}
+      - name: installing dependies
+        run: npm ci
 
-      name: installing dependies
-      run: npm ci
+      - name: starting server
+        run: npm start & npx wait-on http://127.0.0.1:PORT
 
-      name: starting server
-      run: npm start & npx wait-on http://127.0.0.1:PORT
-
-      name: let me know my DB name
-      run: echo "Database name is $DB_NAME"
+      - name: let me know my DB name
+        run: echo "Database name is $DB_NAME"
   
