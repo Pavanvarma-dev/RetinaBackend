@@ -38,7 +38,7 @@ jobs:
       - name: setting up nodejs
         uses: actions/setup-node@v4
         with:
-          node-version:'20'
+          node-version: '18'          
       - name: storing dependies in cache
         uses: actions/cache@v4
         with:
