@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: chahe-with-dependies ${{Filename('**/package-lock.json')}}
+          key: chahe-with-dependies ${{hashFiles('**/package-lock.json')}}
 
       - name: installing dependies
         run: npm ci
